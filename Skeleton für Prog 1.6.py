@@ -11,19 +11,21 @@ import numpy, scipy.misc, math, scipy.integrate
 ## math.sin ( math.pi * x ) ## sin ( pi * x )
 
 ## lambda Funktionen erlauben Definitionen in einer einzigen Zeile
-## prior = lambda p: p**2 * ( 1 - p )**3  ## prior(.5) = .03125
-
+prior = lambda p: p**2 * ( 1 - p )**3  ## prior(.5) = .03125
+n=1000
+k=343
 ## Integral von f ueber das Intervall (a,b)
-## scipy.integrate.quad ( f, a, b ) 
+i = lambda p: prior(p)*scipy.misc.comb ( n, k )*p**k*(1-p)**(n-k)
+j = lambda p: i / scipy.integrate.quad ( i, 0, 1 ) 
 
 ## Teile das Intervall (a,b) in n "bins"
-## numpy.linspace ( a, b, n )
-
+x = numpy.linspace ( 0, 1, n )
+y = j(numpy.meshgrid(x))
 ## Plotten, siehe https://matplotlib.org/
 from matplotlib import pyplot as plt
 
 ## Plotte y versus x, als Linie, mit Label "label1"
-plt.plot ( [1., 2., 5. ], [3, 1., 4. ], label="label1"  ) 
+plt.plot ( y, x, label="label1"  ) 
 plt.title ( "titel" )
 
 ## Beschriftung der x-Achse
