@@ -1,0 +1,22 @@
+18,19c18,19
+< i = lambda p: prior(p)*scipy.misc.comb ( n, k )*p**k*(1-p)**(n-k)
+< j = lambda p: i(p) / scipy.integrate.quad ( i, 0, 1 ) 
+---
+> u = lambda p: math.sin(math.pi*p)**2
+> v = lambda p: u(p) / scipy.integrate.quad ( u, 0, 1 ) 
+23,25c23,25
+< y = []
+< for t in range (0, len(x)):
+<   y.append(j(x[t]))
+---
+> w = []
+> for s in range (0, len(x)):
+>   w.append(v(x[s]))
+30c30
+< plt.plot ( y, x, label="polynom"  ) 
+---
+> plt.plot ( w, x, label="trigonometric"  ) 
+42c42
+< plt.savefig ( "dummy-a.pdf" )
+---
+> plt.savefig ( "dummy-b.pdf" )
